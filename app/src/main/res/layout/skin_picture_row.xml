@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="150dp"
+    android:background="@drawable/box_no_stroke"
+    android:elevation="10dp">
+
+    <TextView
+        android:id="@+id/skin_TextView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="PIMPLE1"
+        android:padding="10dp"
+        android:textSize="20dp"
+        android:layout_centerInParent="true"
+        android:gravity="center"/>
+
+    <ImageButton
+        android:id="@+id/skin_closeBtn"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_margin="10dp"
+        android:background="@drawable/close"
+        android:layout_alignRight="@id/skin_TextView"
+        />
+
+</RelativeLayout>
