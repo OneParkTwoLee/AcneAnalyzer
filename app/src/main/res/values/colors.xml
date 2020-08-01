@@ -6,8 +6,9 @@
     <color name="colorWhite">#FFF</color>
     <color name="colorBlack">#000</color>
     <color name="colorDarkSky">#e1e8ed</color>
-    <color name="colorLightGray">#f2f2f2</color>
+    <color name="colorLightGray">#fafafa</color>
     <color name="colorMiddleGray">#696969</color>
+    <color name="colorDarkGray">#474747</color>
     <color name="colorDarkRed">#D1090B</color>
     <color name="colorLightRed">#FB8180</color>
 </resources>
