@@ -29,10 +29,11 @@
                 android:gravity="center"/>
             <Button
                 android:id="@+id/skin_closeBtn"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_margin="10dp"
                 android:background="@drawable/close"
+                android:alpha="0.7"
                 android:layout_alignRight="@id/skin_TextView" />
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
