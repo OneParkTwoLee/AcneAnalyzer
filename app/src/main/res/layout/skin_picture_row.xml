@@ -10,21 +10,21 @@
         xmlns:card_view="https://schemas.android.com/apk/res-auto"
         android:id="@+id/card_veiw"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="150dp"
         android:layout_marginTop="10dp"
         card_view:cardCornerRadius="40dp">
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
-            <TextView
-                android:id="@+id/skin_TextView"
+            <ImageView
+                android:id="@+id/skin_ImageView"
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
+                android:layout_height="match_parent"
                 android:text="PIMPLE1"
-                android:padding="10dp"
                 android:textSize="15dp"
                 android:layout_centerInParent="true"
-                android:gravity="center"/>
+                android:gravity="center"
+                android:scaleType="centerCrop"/>
             <Button
                 android:id="@+id/skin_closeBtn"
                 android:layout_width="25dp"
@@ -32,8 +32,10 @@
                 android:layout_margin="10dp"
                 android:background="@drawable/close"
                 android:alpha="0.7"
-                android:layout_alignRight="@id/skin_TextView" />
+                android:layout_alignRight="@id/skin_ImageView" />
+
         </RelativeLayout>
+
     </androidx.cardview.widget.CardView>
 
 

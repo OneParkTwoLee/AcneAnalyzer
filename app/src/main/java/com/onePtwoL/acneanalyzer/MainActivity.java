@@ -75,7 +75,6 @@ public class MainActivity extends AppCompatActivity {
         DiagnosisImageView = findViewById(R.id.diag_ImageView);
         NextImageView = findViewById(R.id.next_ImageView);
         NextLinearLayout = findViewById(R.id.next_LinearLayout);
-        TestImageView = findViewById(R.id.test_imageView);  // 임시 테스트 이미지뷰
         // UI(Custom ActionBar)
         setActionBarButton();
 
@@ -191,10 +190,10 @@ public class MainActivity extends AppCompatActivity {
         // 이미지 파일 이름
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         imageFileName =  "test_" +timeStamp ;
+        Log.d("이미지 파일 타임스탬프", imageFileName+"");
 
         // 이미지가 저장될 폴더 이름(outline) & 빈 폴더 생성
-        File storageDir = Environment.getExternalStorageDirectory(); // 외부 저장소 (공용공간)
-        Toast.makeText(this, storageDir+"",Toast.LENGTH_SHORT).show();  // 디버깅용
+        File storageDir = Environment.getExternalStorageDirectory(); // 외부 저장소 (공용공간) -> /storage/emulated/0/
         if(storageDir.exists()){
             storageDir.mkdirs();
         }
@@ -204,14 +203,15 @@ public class MainActivity extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Toast.makeText(this, image+"",Toast.LENGTH_SHORT).show();   // 디버깅용
         imageFilePath = image.getAbsolutePath();
+        Log.d("이미지 파일 절대경로", imageFilePath+"");
         return image;
     }
 
     /* 갤러리에 저장하는 함수 */
     private void saveImage(Bitmap finalBitmap){
         String imageFileForGalName =  imageFileName + ".jpg";
+        Log.d("갤러리 저장될 때", imageFileForGalName+"");
         File myDir = new File(Environment.getExternalStorageDirectory().toString());
         myDir.mkdirs();
         File file = new File(myDir, imageFileForGalName);
@@ -254,11 +254,6 @@ public class MainActivity extends AppCompatActivity {
                 case PICK_FROM_CAMERA: {
                     if (resultCode == RESULT_OK) {
                         File file = new File(imageFilePath);
-                        imageBitmap = null;
-                        imageUri = null;
-
-                        //imageUri = Uri.fromFile(file);
-                        //imageBitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
                         BitmapFactory.Options options = new BitmapFactory.Options();
                         imageBitmap = BitmapFactory.decodeFile(file.getAbsolutePath(), options);
 
@@ -268,9 +263,9 @@ public class MainActivity extends AppCompatActivity {
                             int exifDegree = exifOrientationToDegrees(orientation);
 
                             Bitmap rotatedBitmap = rotateImage(imageBitmap, exifDegree);
-                            TestImageView.setImageBitmap(rotatedBitmap);    // 디버깅용
-                            //setRecyclerViewData(imageFilePath);  // RecyclerView에 데이터 추가
-                            //Log.d("이미지URI", imageUri+"");
+
+                            setRecyclerViewData(imageFilePath);  // RecyclerView에 데이터 추가
+                            Log.d("카메라 이미지 URI_re", imageUri+"");
 
                             saveImage(rotatedBitmap);   // 갤러리에 저장하는 함수
                             //startActivityForResult(intent, CROP_FROM_CAMERA);
@@ -295,13 +290,13 @@ public class MainActivity extends AppCompatActivity {
                             int orientation = ei.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_UNDEFINED);
                             int exifDegree = exifOrientationToDegrees(orientation);
 
-                            Bitmap rotatedBitmap = rotateImage(bitmap, exifDegree);
-                            TestImageView.setImageBitmap(rotatedBitmap);
+                            //Bitmap rotatedBitmap = rotateImage(bitmap, exifDegree);
+                            setRecyclerViewData(imageFilePath);  // RecyclerView에 데이터 추가
+                            Log.d("갤러리 이미지 URI_re", ImageUri+"");
                         }
                     }else {
                         Log.d("갤러리이미지로딩", "NULL");
                     }
-
                 }
             }
 
