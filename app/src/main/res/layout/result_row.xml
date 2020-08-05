@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/card_veiw"
+    android:orientation="horizontal"
+    android:layout_marginTop="15dp"
+    android:layout_width="match_parent"
+    android:layout_height="210dp"
+    android:background="@drawable/box_with_stroke">
+
+    <ImageView
+        android:id="@+id/result_skin_imageView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="15dp"
+        android:src="@drawable/pill"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/result_type_textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:text="Type 1 : Whitehead"
+            android:textSize="18dp"
+            android:textColor="@color/colorDarkGray"
+            android:textStyle="bold"/>
+        <CheckBox
+            android:id="@+id/checkbox_home"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="집에서 치료 가능"
+            android:textColor="@color/colorDarkGray"
+            android:textStyle="bold"/>
+        <CheckBox
+            android:id="@+id/checkbox_hospital"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="병원 치료 필요"
+            android:textColor="@color/colorDarkGray"
+            android:textStyle="bold"/>
+        <TextView
+            android:id="@+id/result_cure_textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:textSize="12dp"
+            android:textColor="@color/colorDarkGray"
+            android:text="스팀 타올을 올려 모공을 연 뒤, 오일 클렌저로 화이트헤드를 녹이세요"/>
+    </LinearLayout>
+</LinearLayout>
+
+

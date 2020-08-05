@@ -1,6 +1,8 @@
 package com.onePtwoL.acneanalyzer;
 
-public class Skin {
+import java.io.Serializable;
+
+public class Skin implements Serializable {
     public String getSkinPictureName() {
         return SkinPictureName;
     }

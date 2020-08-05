@@ -107,16 +107,25 @@ public class MainActivity extends AppCompatActivity {
     public void setActionBarButton(){
         DiagnosisImageView.setColorFilter(Color.parseColor("#ffffff"), PorterDuff.Mode.SRC_IN);
         NextImageView.setColorFilter(Color.parseColor("#ffffff"), PorterDuff.Mode.SRC_IN);
+
         NextLinearLayout.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if(event.getAction() == MotionEvent.ACTION_DOWN){
-                    DiagnosisImageView.setColorFilter(Color.parseColor("#696969"), PorterDuff.Mode.SRC_IN);
-                    NextImageView.setColorFilter(Color.parseColor("#696969"), PorterDuff.Mode.SRC_IN);
+                    DiagnosisImageView.setColorFilter(Color.parseColor("#FB8180"), PorterDuff.Mode.SRC_IN);
+                    NextImageView.setColorFilter(Color.parseColor("#FB8180"), PorterDuff.Mode.SRC_IN);
+                    if(skinArrayList.size() == 0){
+                        Toast.makeText(getApplicationContext(), "진단할 이미지를 업로드 한 후, 진단을 진행하세요", Toast.LENGTH_SHORT).show();
+                    }else{
+                        Intent intent = new Intent(getApplicationContext(), ResultOfDiagnosis.class);
+                        intent.putExtra("skinArray", skinArrayList);
+                        startActivity(intent);
+                    }
                 } else if(event.getAction() == MotionEvent.ACTION_UP){
                     DiagnosisImageView.setColorFilter(Color.parseColor("#FFFFFF"), PorterDuff.Mode.SRC_IN);
                     NextImageView.setColorFilter(Color.parseColor("#FFFFFF"), PorterDuff.Mode.SRC_IN);
                 }
+
                 return false;
             }
         });
@@ -188,7 +197,7 @@ public class MainActivity extends AppCompatActivity {
                     Log.d("프로바이더", getPackageName()+"");
                     Uri photoURI = FileProvider.getUriForFile(this,
                             "com.onePtwoL.acneanalyzer.fileprovider", photoFile);
-                    //imageUri = photoURI;
+                    imageUri = photoURI;
                     takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
                     startActivityForResult(takePictureIntent, PICK_FROM_CAMERA);
                 }
@@ -272,8 +281,10 @@ public class MainActivity extends AppCompatActivity {
         intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
         intent.setDataAndType(imageUri, "image/*");
 
-        intent.putExtra("aspectX", 300);
-        intent.putExtra("aspectY", 300);
+        intent.putExtra("outputX", 300);
+        intent.putExtra("outputY", 300);
+        intent.putExtra("aspectX", 1);
+        intent.putExtra("aspectY", 1);
         intent.putExtra("scale", true);
         intent.putExtra("output", albumUri);
         startActivityForResult(intent, CROP_PICTURE);
@@ -300,12 +311,14 @@ public class MainActivity extends AppCompatActivity {
                             int exifDegree = exifOrientationToDegrees(orientation);
 
                             Bitmap rotatedBitmap = rotateImage(imageBitmap, exifDegree);
-                            setRecyclerViewData(imageFilePath);  // RecyclerView에 데이터 추가
                             Log.d("카메라 이미지 URI_re", imageUri+"");
 
                             saveImage(rotatedBitmap);   // 갤러리에 저장하는 함수
                         }
 
+                        File cropFile = createImageFile();  // 새 크롭 이미지 (덮어쓰기X)
+                        albumUri = Uri.fromFile(cropFile);
+                        cropImage();
                     }
                     break;
 
@@ -316,13 +329,10 @@ public class MainActivity extends AppCompatActivity {
                         imageUri = data.getData();
                         imageFilePath = getImagePathFromURI(imageUri);
                         Log.d("갤러리이미지path", imageFilePath+"");
-                        File tempFile = new File(imageFilePath);
 
-                        File cropFile = createImageFile();
+                        File cropFile = createImageFile();  // 새 크롭 이미지 (덮어쓰기X)
                         albumUri = Uri.fromFile(cropFile);
-                        Log.d("앨범Uri", albumUri+"");
                         cropImage();
-
                     }else {
                         Log.d("갤러리이미지로딩", "NULL");
                     }

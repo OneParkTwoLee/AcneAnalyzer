@@ -1,42 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout
+<androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card_veiw"
+    android:orientation="vertical"
+    android:layout_marginTop="15dp"
+    android:layout_marginLeft="30dp"
+    android:layout_marginRight="30dp"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
-
-    <androidx.cardview.widget.CardView
-        xmlns:card_view="https://schemas.android.com/apk/res-auto"
-        android:id="@+id/card_veiw"
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:layout_marginTop="10dp"
-        card_view:cardCornerRadius="40dp">
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-            <ImageView
-                android:id="@+id/skin_ImageView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="PIMPLE1"
-                android:textSize="15dp"
-                android:layout_centerInParent="true"
-                android:gravity="center"
-                android:scaleType="centerCrop"/>
-            <Button
-                android:id="@+id/skin_closeBtn"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_margin="10dp"
-                android:background="@drawable/close"
-                android:alpha="0.7"
-                android:layout_alignRight="@id/skin_ImageView" />
-
+    android:layout_height="150dp"
+    card_view:cardElevation="10dp"
+    card_view:cardCornerRadius="10dp">
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/skin_ImageView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="PIMPLE1"
+            android:textSize="15dp"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:scaleType="centerCrop"/>
+        <Button
+            android:id="@+id/skin_closeBtn"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/close"
+            android:alpha="0.7"
+            android:layout_alignRight="@id/skin_ImageView" />
         </RelativeLayout>
+</androidx.cardview.widget.CardView>
 
-    </androidx.cardview.widget.CardView>
 
-
-</LinearLayout>

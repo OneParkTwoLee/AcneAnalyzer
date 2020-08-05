@@ -1,9 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorLightGray"
     tools:context=".ResultOfDiagnosis">
+
+
+    <LinearLayout
+        android:id="@+id/result_linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorWhite"
+        android:elevation="10dp"
+        android:layout_margin="25dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:orientation="vertical">
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/result_title_textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="DIAGNOSIS"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:textColor="@color/colorDarkGray"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="10dp"
+                android:gravity="center"/>
+
+            <ImageView
+                android:id="@+id/result_info_imageView"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/info"
+                android:layout_marginRight="20dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerInParent="true"/>
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:background="@color/colorDarkGray"/>
+
+        <TextView
+            android:id="@+id/result_date_textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="2020.08.04"
+            android:gravity="right"
+            android:textColor="@color/colorDarkGray"
+            android:textSize="15dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginRight="16dp"/>
+
+        <TextView
+            android:id="@+id/result_test_textView"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:text="test"/>
+
+
+       <androidx.recyclerview.widget.RecyclerView
+           android:layout_width="match_parent"
+           android:layout_height="match_parent"
+           android:layout_marginLeft="15dp"
+           android:layout_marginRight="15dp"
+           android:layout_marginBottom="15dp"/>
+
+
+    </LinearLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
