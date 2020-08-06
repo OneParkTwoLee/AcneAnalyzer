@@ -7,11 +7,13 @@ import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class ResultOfDiagnosis extends AppCompatActivity {
     ImageView infoImageView;
-    TextView dateTextView, testTextView;
+    TextView dateTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,11 +21,18 @@ public class ResultOfDiagnosis extends AppCompatActivity {
         setContentView(R.layout.activity_result_of_diagnosis);
 
         infoImageView = findViewById(R.id.result_info_imageView);
+        clickInfoImageView();
+
         dateTextView = findViewById(R.id.result_date_textView);
-        testTextView = findViewById(R.id.result_test_textView);
+        String timeStamp = new SimpleDateFormat("yyyy.MM.dd").format(new Date());
+        dateTextView.setText(timeStamp);
 
         Intent intent = getIntent();
         ArrayList<Skin> mSkinList = (ArrayList<Skin>)intent.getSerializableExtra("skinArray");
-        testTextView.setText(mSkinList.get(0).getSkinPictureName());
+        // 제대로 넘어온 것 확인 O
+    }
+
+    public void clickInfoImageView(){
+
     }
 }

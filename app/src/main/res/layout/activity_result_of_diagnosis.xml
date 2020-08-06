@@ -29,7 +29,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="DIAGNOSIS"
-                android:textSize="20dp"
+                android:textSize="22dp"
                 android:textStyle="bold"
                 android:textColor="@color/colorDarkGray"
                 android:layout_marginTop="20dp"
@@ -38,8 +38,9 @@
 
             <ImageView
                 android:id="@+id/result_info_imageView"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:padding="10dp"
                 android:src="@drawable/info"
                 android:layout_marginRight="20dp"
                 android:layout_alignParentRight="true"
@@ -63,12 +64,6 @@
             android:textSize="15dp"
             android:layout_marginTop="3dp"
             android:layout_marginRight="16dp"/>
-
-        <TextView
-            android:id="@+id/result_test_textView"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:text="test"/>
 
 
        <androidx.recyclerview.widget.RecyclerView

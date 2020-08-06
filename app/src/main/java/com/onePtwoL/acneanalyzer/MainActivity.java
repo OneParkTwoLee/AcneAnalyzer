@@ -31,7 +31,11 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -40,6 +44,12 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class MainActivity extends AppCompatActivity {
     /* Activity와 연결된 컴포넌트 */
@@ -64,6 +74,11 @@ public class MainActivity extends AppCompatActivity {
     private static Uri imageUri, albumUri;
     private String imageFilePath, imageFileName;
     private Bitmap imageBitmap;
+
+    private TextView mTextViewResult;
+    private OkHttpClient client;
+    private String OkhttpUrl;
+    private Request request;
 
 
     @Override
@@ -101,6 +116,17 @@ public class MainActivity extends AppCompatActivity {
         }
         clickAddPictureBtn();   // 진단할 사진 추가하기
 
+
+        /* OKHTTP */
+        mTextViewResult = findViewById(R.id.text_view_result);
+    //a. Setup the http request: okhttp3.OkHttpClient
+        client = new OkHttpClient();
+        //String url = "https://reqres.in/api/users?page=2";
+        OkhttpUrl ="http://172.30.1.4:5000/plus?x=2&y=3";
+
+    //b. Make the request: okhttp3.Request
+        request = new Request.Builder().url(OkhttpUrl).build();
+
     }
 
     /* 진단 버튼 클릭시 이미지 효과 */
@@ -114,13 +140,53 @@ public class MainActivity extends AppCompatActivity {
                 if(event.getAction() == MotionEvent.ACTION_DOWN){
                     DiagnosisImageView.setColorFilter(Color.parseColor("#FB8180"), PorterDuff.Mode.SRC_IN);
                     NextImageView.setColorFilter(Color.parseColor("#FB8180"), PorterDuff.Mode.SRC_IN);
+                    /*
                     if(skinArrayList.size() == 0){
                         Toast.makeText(getApplicationContext(), "진단할 이미지를 업로드 한 후, 진단을 진행하세요", Toast.LENGTH_SHORT).show();
                     }else{
                         Intent intent = new Intent(getApplicationContext(), ResultOfDiagnosis.class);
                         intent.putExtra("skinArray", skinArrayList);
                         startActivity(intent);
-                    }
+                    }*/
+
+                    client.newCall(request).enqueue(new Callback() {
+                        @Override
+                        public void onFailure(Call call, IOException e) {
+                            Log.d("연결 실패", "error Connect Server error is"+e.toString());
+                            e.printStackTrace();
+                        }
+
+                        @Override
+                        public void onResponse(Call call, Response response) throws IOException {
+                            //System.out.println("response body is"+response.body().string());
+                            if (response.isSuccessful()) {
+                                // final String myResponse = response.body().string();
+                                try {
+                                    final JSONObject jsonObject = new JSONObject(response.body().string());
+                                    MainActivity.this.runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            try {
+                                                mTextViewResult.setText(jsonObject.getString("result"));
+                                            } catch (JSONException e) {
+                                                e.printStackTrace();
+                                            }
+                                        }
+                                    });
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                                // Log.d("값 출력", myResponse+"");
+                                //MainActivity.this.runOnUiThread(new Runnable() {
+                                //    @Override
+                                //    public void run() {
+                                //        mTextViewResult.setText(myResponse);
+                                //    }
+                                //});
+                            }
+                        }
+
+                    });
                 } else if(event.getAction() == MotionEvent.ACTION_UP){
                     DiagnosisImageView.setColorFilter(Color.parseColor("#FFFFFF"), PorterDuff.Mode.SRC_IN);
                     NextImageView.setColorFilter(Color.parseColor("#FFFFFF"), PorterDuff.Mode.SRC_IN);
