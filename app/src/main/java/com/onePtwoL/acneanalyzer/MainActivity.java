@@ -47,8 +47,11 @@ import java.util.Date;
 
 import okhttp3.Call;
 import okhttp3.Callback;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class MainActivity extends AppCompatActivity {
@@ -72,13 +75,15 @@ public class MainActivity extends AppCompatActivity {
     private static final int CROP_PICTURE = 3;
 
     private static Uri imageUri, albumUri;
-    private String imageFilePath, imageFileName;
+    private String imageFilePath = " ", imageFileName=" ";
     private Bitmap imageBitmap;
 
     private TextView mTextViewResult;
     private OkHttpClient client;
     private String OkhttpUrl;
     private Request request;
+    private MediaType mediaType;
+    private RequestBody body;
 
 
     @Override
@@ -116,16 +121,11 @@ public class MainActivity extends AppCompatActivity {
         }
         clickAddPictureBtn();   // 진단할 사진 추가하기
 
-
-        /* OKHTTP */
-        mTextViewResult = findViewById(R.id.text_view_result);
-    //a. Setup the http request: okhttp3.OkHttpClient
+        // OKHTTP3
+        mTextViewResult = findViewById(R.id.text_view_result);  // 디버깅용
         client = new OkHttpClient();
-        //String url = "https://reqres.in/api/users?page=2";
-        OkhttpUrl ="http://172.30.1.4:5000/plus?x=2&y=3";
-
-    //b. Make the request: okhttp3.Request
-        request = new Request.Builder().url(OkhttpUrl).build();
+        mediaType = MediaType.parse("text/plain");
+        OkhttpUrl ="http://172.30.1.4:5000/api/pictures/";
 
     }
 
@@ -149,6 +149,19 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(intent);
                     }*/
 
+                    /* OKHTTP3 */
+
+                    Log.d("OKHTTP 파일 확인", imageFileName+" : 이름  / "+imageFilePath+" : 경로");
+                    body = new MultipartBody.Builder().setType(MultipartBody.FORM)
+                            .addFormDataPart("picture",imageFileName,
+                                    RequestBody.create(MediaType.parse("application/octet-stream"),
+                                            new File(imageFilePath)))
+                            .build();
+                    request = new Request.Builder()
+                            .url(OkhttpUrl)
+                            .method("POST", body)
+                            .build();
+
                     client.newCall(request).enqueue(new Callback() {
                         @Override
                         public void onFailure(Call call, IOException e) {
@@ -160,14 +173,14 @@ public class MainActivity extends AppCompatActivity {
                         public void onResponse(Call call, Response response) throws IOException {
                             //System.out.println("response body is"+response.body().string());
                             if (response.isSuccessful()) {
-                                // final String myResponse = response.body().string();
+                                //final String myResponse = response.body().string();
                                 try {
                                     final JSONObject jsonObject = new JSONObject(response.body().string());
                                     MainActivity.this.runOnUiThread(new Runnable() {
                                         @Override
                                         public void run() {
                                             try {
-                                                mTextViewResult.setText(jsonObject.getString("result"));
+                                                mTextViewResult.setText(jsonObject.getString("predicted_label"));
                                             } catch (JSONException e) {
                                                 e.printStackTrace();
                                             }
@@ -176,6 +189,7 @@ public class MainActivity extends AppCompatActivity {
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
+                                Log.d("response",response.body().string()+"");
                                 // Log.d("값 출력", myResponse+"");
                                 //MainActivity.this.runOnUiThread(new Runnable() {
                                 //    @Override
@@ -295,7 +309,7 @@ public class MainActivity extends AppCompatActivity {
 
     /* 갤러리에 저장하는 함수 */
     private void saveImage(Bitmap finalBitmap){
-        String imageFileForGalName =  imageFileName;
+        String imageFileForGalName = imageFileName;
         Log.d("갤러리 저장될 때", imageFileForGalName+"");
         File myDir = new File(Environment.getExternalStorageDirectory().toString());
         //File myDir = new File(Environment.getExternalStorageDirectory()+"/Pictures", "AcneAnalyzer");

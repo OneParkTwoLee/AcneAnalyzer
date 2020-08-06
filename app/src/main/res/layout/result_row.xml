@@ -18,11 +18,10 @@
         <ImageView
             android:id="@+id/result_skin_imageView"
             android:layout_width="0dp"
-            android:layout_height="190dp"
+            android:layout_height="170dp"
             android:layout_marginTop="15dp"
-            android:layout_marginRight="15dp"
             android:layout_weight="1"
-            android:background="@color/colorMiddleGray"
+            android:background="@color/colorWhite"
             android:src="@drawable/pill"/>
         <LinearLayout
             android:layout_width="0dp"
@@ -35,8 +34,8 @@
                 android:id="@+id/result_type_textView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:text="Type 1 : Whitehead"
+                android:layout_marginBottom="5dp"
+                android:text="화이트헤드(Whitehead)"
                 android:textSize="18dp"
                 android:textColor="@color/colorDarkGray"
                 android:textStyle="bold"/>
@@ -71,16 +70,24 @@
             </LinearLayout>
 
     </LinearLayout>
+    <view
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:background="@color/colorLightRed"/>
     <TextView
         android:id="@+id/result_cure_textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:textSize="14dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:textSize="15dp"
         android:textColor="@color/colorDarkGray"
-        android:text="구진에서 더 진행한 단계로, 고름이 발생한 상태의 여드름입니다. 조직이 약해져 있어 피부층 손상을 받기 쉬운 상태로 흉터가 남을 가능성이 높습니다. "/>
-
+        android:text="압출은 추천하지 않습니다.\n스팀 타올로 모공을 연 뒤, 피지연화제품으로 피지를 녹이고 모공 수축 팩을 모공을 수축시켜야 합니다."/>
     <view
         android:layout_width="match_parent"
         android:layout_height="2dp"
