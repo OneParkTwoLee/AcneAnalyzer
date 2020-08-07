@@ -140,6 +140,10 @@ public class MainActivity extends AppCompatActivity {
                 if(event.getAction() == MotionEvent.ACTION_DOWN){
                     DiagnosisImageView.setColorFilter(Color.parseColor("#FB8180"), PorterDuff.Mode.SRC_IN);
                     NextImageView.setColorFilter(Color.parseColor("#FB8180"), PorterDuff.Mode.SRC_IN);
+
+                    Intent intent = new Intent(getApplicationContext(), ResultOfDiagnosis.class);
+                    startActivity(intent);
+
                     /*
                     if(skinArrayList.size() == 0){
                         Toast.makeText(getApplicationContext(), "진단할 이미지를 업로드 한 후, 진단을 진행하세요", Toast.LENGTH_SHORT).show();
@@ -149,7 +153,7 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(intent);
                     }*/
 
-                    /* OKHTTP3 */
+                    /* OKHTTP3
 
                     Log.d("OKHTTP 파일 확인", imageFileName+" : 이름  / "+imageFilePath+" : 경로");
                     body = new MultipartBody.Builder().setType(MultipartBody.FORM)
@@ -189,7 +193,6 @@ public class MainActivity extends AppCompatActivity {
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
-                                Log.d("response",response.body().string()+"");
                                 // Log.d("값 출력", myResponse+"");
                                 //MainActivity.this.runOnUiThread(new Runnable() {
                                 //    @Override
@@ -201,6 +204,7 @@ public class MainActivity extends AppCompatActivity {
                         }
 
                     });
+                    */
                 } else if(event.getAction() == MotionEvent.ACTION_UP){
                     DiagnosisImageView.setColorFilter(Color.parseColor("#FFFFFF"), PorterDuff.Mode.SRC_IN);
                     NextImageView.setColorFilter(Color.parseColor("#FFFFFF"), PorterDuff.Mode.SRC_IN);
