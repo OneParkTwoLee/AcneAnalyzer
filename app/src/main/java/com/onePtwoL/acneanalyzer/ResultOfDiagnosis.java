@@ -1,6 +1,8 @@
 package com.onePtwoL.acneanalyzer;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Dialog;
 import android.content.Intent;
@@ -16,9 +18,18 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class ResultOfDiagnosis extends AppCompatActivity {
+    /* Activity와 연결된 컴포넌트 */
     ImageView infoImageView;
     TextView dateTextView;
     Dialog dialog;
+
+    /* RecyclerView와 관련된 컴포넌트 */
+    ArrayList<Skin> mSkinList;
+    ArrayList<Result> resultArrayList;
+    RecyclerView recyclerView;
+    LinearLayoutManager layoutManager;
+    MyAdapter2 myAdapter2;
+    int typeNum = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,8 +44,22 @@ public class ResultOfDiagnosis extends AppCompatActivity {
         String timeStamp = new SimpleDateFormat("yyyy.MM.dd").format(new Date());
         dateTextView.setText(timeStamp);
 
-        //Intent intent = getIntent();
-        //ArrayList<Skin> mSkinList = (ArrayList<Skin>)intent.getSerializableExtra("skinArray");
+        // RecyclerView 설정
+        Intent intent = getIntent();
+        mSkinList = (ArrayList<Skin>)intent.getSerializableExtra("skinArray");
+        resultArrayList = new ArrayList<>();
+        makeResultData();
+
+        recyclerView = findViewById(R.id.result_recyclerView);
+        layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setHasFixedSize(true);
+
+        myAdapter2 = new MyAdapter2(resultArrayList);
+        recyclerView.setAdapter(myAdapter2);
+        Log.d("결과 리싸이클러뷰", "OK");
+
+
         // 제대로 넘어온 것 확인 O
     }
 
@@ -51,5 +76,16 @@ public class ResultOfDiagnosis extends AppCompatActivity {
                 dialog.show();
             }
         });
+    }
+
+    public void makeResultData(){
+        for(int i=0;i<mSkinList.size();i++){
+            Result resultData = new Result(mSkinList.get(i).getSkinPictureName(), typeNum+"");
+            typeNum++;
+            Log.d("Result 데이터 확인", resultData.getSkinPicturePath()+" 와 "+resultData.getAcneTypeNum());
+            resultArrayList.add(resultData);
+            myAdapter2.notifyDataSetChanged();
+        }
+
     }
 }

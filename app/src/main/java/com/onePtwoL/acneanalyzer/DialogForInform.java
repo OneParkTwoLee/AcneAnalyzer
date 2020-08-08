@@ -87,7 +87,7 @@ public class DialogForInform extends Dialog {
         button5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                typeNameTextView.setText("결절, 낭종 : Nodular, Cystic");
+                typeNameTextView.setText("결절, 낭종");
                 typeContextTextView.setText(
                         "결절은 농포가 피부 속에서 터지면 염증이 더욱 심해지고 크기가 커진 단계입니다. " +
                         "낭종은 결절에서 발달된 형태로 모공 벽이 파열된 여러 개의 모공들이 합쳐져 거대한 염증 반응이 생긴 단계를 말합니다. " +
