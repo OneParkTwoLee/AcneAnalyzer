@@ -141,17 +141,13 @@ public class MainActivity extends AppCompatActivity {
                     DiagnosisImageView.setColorFilter(Color.parseColor("#FB8180"), PorterDuff.Mode.SRC_IN);
                     NextImageView.setColorFilter(Color.parseColor("#FB8180"), PorterDuff.Mode.SRC_IN);
 
-                    Intent intent = new Intent(getApplicationContext(), ResultOfDiagnosis.class);
-                    startActivity(intent);
-
-                    /*
                     if(skinArrayList.size() == 0){
                         Toast.makeText(getApplicationContext(), "진단할 이미지를 업로드 한 후, 진단을 진행하세요", Toast.LENGTH_SHORT).show();
-                    }else{
+                    }else {
                         Intent intent = new Intent(getApplicationContext(), ResultOfDiagnosis.class);
                         intent.putExtra("skinArray", skinArrayList);
                         startActivity(intent);
-                    }*/
+                    }
 
                     /* OKHTTP3
 
@@ -211,19 +207,6 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 return false;
-            }
-        });
-    }
-
-    /* RecyclerView 추가 버튼 - TEST */
-    public void setClickActionWithAddBtn_TEST(){
-        AddPicBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                count++;
-                Skin skin = new Skin("pimple"+count);
-                skinArrayList.add(skin);
-                myAdapter.notifyDataSetChanged();
             }
         });
     }

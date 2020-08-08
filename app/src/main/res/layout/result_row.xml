@@ -7,19 +7,16 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/colorWhite">
-    <view
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:background="@color/colorDarkGray"/>
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <ImageView
             android:id="@+id/result_skin_imageView"
             android:layout_width="0dp"
-            android:layout_height="170dp"
+            android:layout_height="140dp"
             android:layout_marginTop="15dp"
+            android:layout_marginLeft="10dp"
             android:layout_weight="1"
             android:background="@color/colorWhite"
             android:src="@drawable/pill"/>
@@ -35,8 +32,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
+                android:layout_marginLeft="10dp"
                 android:text="화이트헤드(Whitehead)"
-                android:textSize="18dp"
+                android:textSize="15dp"
                 android:textColor="@color/colorDarkGray"
                 android:textStyle="bold"/>
             <CheckBox
@@ -46,7 +44,7 @@
                 android:layout_marginLeft="5dp"
                 android:clickable="false"
                 android:text="집에서 치료 가능"
-                android:textSize="16dp"
+                android:textSize="13dp"
                 android:textColor="@color/colorDarkGray"
                 android:textStyle="bold"/>
 
@@ -58,7 +56,7 @@
                 android:clickable="false"
                 android:text="병원 치료 필요"
                 android:textColor="@color/colorDarkGray"
-                android:textSize="16dp"
+                android:textSize="13dp"
                 android:textStyle="bold" />
             <CheckBox
                 android:id="@+id/checkbox_infection"
@@ -67,31 +65,29 @@
                 android:layout_marginLeft="5dp"
                 android:clickable="false"
                 android:text="염증성"
-                android:textSize="16dp"
+                android:textSize="13dp"
                 android:textColor="@color/colorDarkGray"
                 android:textStyle="bold"/>
             </LinearLayout>
 
     </LinearLayout>
-    <view
+    <View
         android:layout_width="match_parent"
-        android:layout_height="2dp"
+        android:layout_height="3dp"
         android:layout_marginTop="12dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
-        android:background="@color/colorLightRed"/>
+        android:background="@drawable/dash_line"
+        android:layerType="software"/>
     <TextView
         android:id="@+id/result_cure_textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:textSize="15dp"
+        android:layout_margin="10dp"
+        android:textSize="14dp"
         android:textColor="@color/colorDarkGray"
         android:text="압출은 추천하지 않습니다.\n스팀 타올로 모공을 연 뒤, 피지연화제품으로 피지를 녹이고 모공 수축 팩을 모공을 수축시켜야 합니다."/>
-    <view
+    <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
         android:background="@color/colorDarkGray"/>

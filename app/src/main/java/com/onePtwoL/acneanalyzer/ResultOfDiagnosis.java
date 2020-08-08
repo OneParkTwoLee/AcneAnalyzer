@@ -48,7 +48,12 @@ public class ResultOfDiagnosis extends AppCompatActivity {
         Intent intent = getIntent();
         mSkinList = (ArrayList<Skin>)intent.getSerializableExtra("skinArray");
         resultArrayList = new ArrayList<>();
-        makeResultData();
+        for(int i=0;i<mSkinList.size();i++){
+            Result resultData = new Result(mSkinList.get(i).getSkinPictureName(), typeNum+"");
+            typeNum++;
+            Log.d("Result 데이터 확인", resultData.getSkinPicturePath()+" 와 "+resultData.getAcneTypeNum());
+            resultArrayList.add(resultData);
+        }
 
         recyclerView = findViewById(R.id.result_recyclerView);
         layoutManager = new LinearLayoutManager(this);
@@ -78,14 +83,5 @@ public class ResultOfDiagnosis extends AppCompatActivity {
         });
     }
 
-    public void makeResultData(){
-        for(int i=0;i<mSkinList.size();i++){
-            Result resultData = new Result(mSkinList.get(i).getSkinPictureName(), typeNum+"");
-            typeNum++;
-            Log.d("Result 데이터 확인", resultData.getSkinPicturePath()+" 와 "+resultData.getAcneTypeNum());
-            resultArrayList.add(resultData);
-            myAdapter2.notifyDataSetChanged();
-        }
 
-    }
 }
