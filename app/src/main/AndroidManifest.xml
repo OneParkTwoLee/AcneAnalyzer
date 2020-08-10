@@ -19,6 +19,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".dialog_loading"></activity>
         <activity android:name=".IntroActivity" />
         <activity android:name=".ResultOfDiagnosis" />
         <activity android:name=".MainActivity">

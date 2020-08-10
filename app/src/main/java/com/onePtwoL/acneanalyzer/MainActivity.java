@@ -34,6 +34,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -95,6 +97,7 @@ public class MainActivity extends AppCompatActivity {
         DiagnosisImageView = findViewById(R.id.diag_ImageView);
         NextImageView = findViewById(R.id.next_ImageView);
         NextLinearLayout = findViewById(R.id.next_LinearLayout);
+
         // UI(Custom ActionBar)
         setActionBarButton();
 

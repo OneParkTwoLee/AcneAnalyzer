@@ -95,7 +95,6 @@
         app:layout_constraintBottom_toTopOf="@id/picture_RecyclerView"/>
 
 
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/picture_RecyclerView"
         android:layout_width="0dp"
@@ -113,6 +112,7 @@
         android:layout_height="match_parent"
         android:layout_marginTop="250dp"
         android:text="okhttp test"
+        android:visibility="invisible"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
