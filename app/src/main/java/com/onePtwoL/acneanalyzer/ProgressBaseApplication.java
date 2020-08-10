@@ -4,8 +4,12 @@ import android.app.Activity;
 import android.app.Application;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.util.Log;
+import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatDialog;
+
+import com.bumptech.glide.Glide;
 
 public class ProgressBaseApplication extends Application {
     private static ProgressBaseApplication baseApplication;
@@ -23,7 +27,7 @@ public class ProgressBaseApplication extends Application {
 
     public void progressON(Activity activity){
         if(activity == null || activity.isFinishing()){
-            return;
+            Log.d("프로그레스 Activity", "NULL");
         }
 
         if(progressDialog != null && progressDialog.isShowing()){
@@ -32,9 +36,12 @@ public class ProgressBaseApplication extends Application {
             progressDialog = new AppCompatDialog(activity);
             progressDialog.setCancelable(false);
             progressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-            progressDialog.setContentView(R.layout.activity_dialog_loading);
+            //progressDialog.setContentView(R.layout.activity_dialog_loading);
             progressDialog.show();
         }
+
+        final ImageView loadingImageView = progressDialog.findViewById(R.id.loading_imageView);
+        Glide.with(this).load(R.drawable.loader).into(loadingImageView);
     }
 
     public void progressOFF(){

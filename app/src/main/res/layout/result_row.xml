@@ -71,26 +71,19 @@
             </LinearLayout>
 
     </LinearLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="3dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:background="@drawable/dash_line"
-        android:layerType="software"/>
     <TextView
         android:id="@+id/result_cure_textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:textSize="13dp"
+        android:padding="20dp"
+        android:textSize="12dp"
         android:textColor="@color/colorDarkGray"
         android:text="압출은 추천하지 않습니다.\n스팀 타올로 모공을 연 뒤, 피지연화제품으로 피지를 녹이고 모공 수축 팩을 모공을 수축시켜야 합니다."/>
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
         android:background="@color/colorDarkGray"/>
 
 </LinearLayout>

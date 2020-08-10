@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
@@ -22,6 +23,7 @@ public class ResultOfDiagnosis extends AppCompatActivity {
     ImageView infoImageView;
     TextView dateTextView;
     Dialog dialog;
+
 
     /* RecyclerView와 관련된 컴포넌트 */
     ArrayList<Skin> mSkinList;

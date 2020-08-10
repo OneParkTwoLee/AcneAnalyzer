@@ -17,11 +17,13 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.ColorDrawable;
 import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -46,6 +48,8 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -80,12 +84,15 @@ public class MainActivity extends AppCompatActivity {
     private String imageFilePath = " ", imageFileName=" ";
     private Bitmap imageBitmap;
 
+    /* OKHTTP3 */
     private TextView mTextViewResult;
     private OkHttpClient client;
     private String OkhttpUrl;
     private Request request;
     private MediaType mediaType;
     private RequestBody body;
+
+    private DialogForLoading loadingDialog;
 
 
     @Override
@@ -132,25 +139,48 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
+
     /* 진단 버튼 클릭시 이미지 효과 */
     public void setActionBarButton(){
         DiagnosisImageView.setColorFilter(Color.parseColor("#ffffff"), PorterDuff.Mode.SRC_IN);
         NextImageView.setColorFilter(Color.parseColor("#ffffff"), PorterDuff.Mode.SRC_IN);
 
-        NextLinearLayout.setOnTouchListener(new View.OnTouchListener() {
+        NextLinearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if(event.getAction() == MotionEvent.ACTION_DOWN){
-                    DiagnosisImageView.setColorFilter(Color.parseColor("#FB8180"), PorterDuff.Mode.SRC_IN);
-                    NextImageView.setColorFilter(Color.parseColor("#FB8180"), PorterDuff.Mode.SRC_IN);
+            public void onClick(View v) {
+                loadingDialog = new DialogForLoading(MainActivity.this, android.R.style.Theme_Black_NoTitleBar);
+                loadingDialog.setCancelable(true);
+                loadingDialog.setCanceledOnTouchOutside(false);
+                loadingDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                loadingDialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
+                loadingDialog.show();
 
-                    if(skinArrayList.size() == 0){
-                        Toast.makeText(getApplicationContext(), "진단할 이미지를 업로드 한 후, 진단을 진행하세요", Toast.LENGTH_SHORT).show();
-                    }else {
-                        Intent intent = new Intent(getApplicationContext(), ResultOfDiagnosis.class);
-                        intent.putExtra("skinArray", skinArrayList);
-                        startActivity(intent);
+                Thread thread = new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        TimerTask task = new TimerTask() {
+                            @Override
+                            public void run() {
+                                loadingDialog.dismiss();
+                            }
+                        };
+                        Timer timer = new Timer();
+                        timer.schedule(task,6000);
                     }
+                });
+                thread.start();
+
+
+                if(skinArrayList.size() == 0){
+                    Toast.makeText(getApplicationContext(), "진단할 이미지를 업로드 한 후, 진단을 진행하세요", Toast.LENGTH_SHORT).show();
+                }else {
+                    Intent intent = new Intent(getApplicationContext(), ResultOfDiagnosis.class);
+                    intent.putExtra("skinArray", skinArrayList);
+                    startActivity(intent);
+                }
+
+
 
                     /* OKHTTP3
 
@@ -204,14 +234,9 @@ public class MainActivity extends AppCompatActivity {
 
                     });
                     */
-                } else if(event.getAction() == MotionEvent.ACTION_UP){
-                    DiagnosisImageView.setColorFilter(Color.parseColor("#FFFFFF"), PorterDuff.Mode.SRC_IN);
-                    NextImageView.setColorFilter(Color.parseColor("#FFFFFF"), PorterDuff.Mode.SRC_IN);
-                }
-
-                return false;
             }
         });
+
     }
 
     /* RecyclerView 데이터 추가 버튼 */
@@ -242,6 +267,7 @@ public class MainActivity extends AppCompatActivity {
                 });
                 dialog.setCancelable(true);
                 dialog.setCanceledOnTouchOutside(true);
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 dialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
                 dialog.show();
             }

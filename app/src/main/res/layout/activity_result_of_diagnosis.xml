@@ -70,9 +70,12 @@
            android:id="@+id/result_recyclerView"
            android:layout_width="match_parent"
            android:layout_height="match_parent"
+           android:layout_marginTop="5dp"
            android:layout_marginLeft="15dp"
            android:layout_marginRight="15dp"
-           android:layout_marginBottom="15dp"/>
+           android:layout_marginBottom="15dp"
+           android:padding="3dp"
+           android:background="@drawable/box_with_stroke"/>
 
 
     </LinearLayout>
