@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -20,6 +21,7 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.ColorDrawable;
 import android.media.ExifInterface;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
@@ -94,6 +96,7 @@ public class MainActivity extends AppCompatActivity {
     private String resultString = " ";
 
     private DialogForLoading loadingDialog;
+    private ProgressDialog progressDialog = null;
 
 
     @Override
@@ -150,6 +153,11 @@ public class MainActivity extends AppCompatActivity {
         NextLinearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                if (skinArrayList.size() == 0) {
+                    Toast.makeText(getApplicationContext(), "진단할 이미지를 업로드 한 후, 진단을 진행하세요", Toast.LENGTH_SHORT).show();
+                } else {
+
                 loadingDialog = new DialogForLoading(MainActivity.this, android.R.style.Theme_Black_NoTitleBar);
                 loadingDialog.setCancelable(true);
                 loadingDialog.setCanceledOnTouchOutside(false);
@@ -157,83 +165,73 @@ public class MainActivity extends AppCompatActivity {
                 loadingDialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
                 loadingDialog.show();
 
-                Thread thread = new Thread(new Runnable() {
+
+
+                MultipartBody.Builder multiBuilder = new MultipartBody.Builder().setType(MultipartBody.FORM);
+                if (skinArrayList.size() == 0) {
+                    Log.d("넘길 데이터 없음", "NULL");
+                } else {
+                    for (int i = 0; i < skinArrayList.size(); i++) {
+                        multiBuilder.addFormDataPart("acne", skinArrayList.get(i).getSkinPictureName(),
+                                RequestBody.create(MediaType.parse("application/octet-stream"),
+                                        new File(skinArrayList.get(i).getSkinPicturePath())));
+                    }
+                }
+
+                body = multiBuilder.build();
+                request = new Request.Builder()
+                        .url(OkhttpUrl)
+                        .method("POST", body)
+                        .build();
+
+                client.newCall(request).enqueue(new Callback() {
                     @Override
-                    public void run() {
-                        TimerTask task = new TimerTask() {
-                            @Override
-                            public void run() {
-                                loadingDialog.dismiss();
-                            }
-                        };
-                        Timer timer = new Timer();
-                        timer.schedule(task,6000);
-                    }
-                });
-                thread.start();
-
-
-                    Log.d("OKHTTP 파일 확인", imageFileName+" : 이름  / "+imageFilePath+" : 경로");
-                    MultipartBody.Builder multiBuilder = new MultipartBody.Builder().setType(MultipartBody.FORM);
-                    if(skinArrayList.size()==0){
-                        Log.d("넘길 데이터 없음", "NULL");
-                    }else{
-                        for(int i=0;i<skinArrayList.size();i++){
-                            multiBuilder.addFormDataPart("acne",skinArrayList.get(i).getSkinPictureName(),
-                                    RequestBody.create(MediaType.parse("application/octet-stream"),
-                                            new File(skinArrayList.get(i).getSkinPicturePath())));
-                        }
+                    public void onFailure(Call call, IOException e) {
+                        Log.d("연결 실패", "error Connect Server error is" + e.toString());
+                        e.printStackTrace();
                     }
 
-                    body = multiBuilder.build();
-                    request = new Request.Builder()
-                            .url(OkhttpUrl)
-                            .method("POST", body)
-                            .build();
+                    @Override
+                    public void onResponse(Call call, Response response) throws IOException {
+                        //System.out.println("response body is"+response.body().string());
+                        if (response.isSuccessful()) {
+                            //final String myResponse = response.body().string();
+                            try {
+                                final JSONObject jsonObject = new JSONObject(response.body().string());
+                                MainActivity.this.runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        try {
+                                            resultString = jsonObject.getString("predicted_label");
+                                            //Log.d("데이터 확인확인", resultString);
+                                            mTextViewResult.setText(resultString);
+                                            Log.d("확인해보자", resultString);
 
-                    client.newCall(request).enqueue(new Callback() {
-                        @Override
-                        public void onFailure(Call call, IOException e) {
-                            Log.d("연결 실패", "error Connect Server error is"+e.toString());
-                            e.printStackTrace();
-                        }
+                                            loadingDialog.dismiss();
+                                            Intent intent = new Intent(getApplicationContext(), ResultOfDiagnosis.class);
+                                            intent.putExtra("skinArray", skinArrayList);
+                                            intent.putExtra("resultString", resultString);
+                                            startActivity(intent);
 
-                        @Override
-                        public void onResponse(Call call, Response response) throws IOException {
-                            //System.out.println("response body is"+response.body().string());
-                            if (response.isSuccessful()) {
-                                //final String myResponse = response.body().string();
-                                try {
-                                    final JSONObject jsonObject = new JSONObject(response.body().string());
-                                    MainActivity.this.runOnUiThread(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            try {
-                                                resultString = jsonObject.getString("predicted_label");
-                                                mTextViewResult.setText(jsonObject.getString("predicted_label"));
-                                            } catch (JSONException e) {
-                                                e.printStackTrace();
-                                            }
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
                                         }
-                                    });
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
+                                    }
+                                });
+                            } catch (JSONException e) {
+                                e.printStackTrace();
                             }
                         }
+                    }
 
-                    });
+                });
+
+
             }
+        }
         });
 
-        if(skinArrayList.size() == 0){
-            Toast.makeText(getApplicationContext(), "진단할 이미지를 업로드 한 후, 진단을 진행하세요", Toast.LENGTH_SHORT).show();
-        }else {
-            Intent intent = new Intent(getApplicationContext(), ResultOfDiagnosis.class);
-            intent.putExtra("skinArray", skinArrayList);
-            intent.putExtra("resultString", resultString);
-            startActivity(intent);
-        }
+
 
 
     }
@@ -481,3 +479,4 @@ public class MainActivity extends AppCompatActivity {
     }
 
 }
+

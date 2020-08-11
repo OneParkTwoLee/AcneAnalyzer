@@ -40,8 +40,7 @@ public class ProgressBaseApplication extends Application {
             progressDialog.show();
         }
 
-        final ImageView loadingImageView = progressDialog.findViewById(R.id.loading_imageView);
-        Glide.with(this).load(R.drawable.loader).into(loadingImageView);
+
     }
 
     public void progressOFF(){

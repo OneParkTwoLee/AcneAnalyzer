@@ -9,11 +9,12 @@ import android.os.Bundle;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 
 import com.bumptech.glide.Glide;
 
 public class DialogForLoading extends Dialog {
-    ImageView loadingImageView;
+    ProgressBar progressBar;
     Context context;
 
 
@@ -27,8 +28,6 @@ public class DialogForLoading extends Dialog {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dialog_for_loading);
-
-        loadingImageView = findViewById(R.id.loading_imageView);
-        Glide.with(context).load(R.drawable.loader).into(loadingImageView);
+        progressBar = findViewById(R.id.loading_progressBar);
     }
 }

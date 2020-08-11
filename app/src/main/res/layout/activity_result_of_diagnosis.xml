@@ -74,10 +74,7 @@
            android:layout_marginLeft="15dp"
            android:layout_marginRight="15dp"
            android:layout_marginBottom="15dp"
-           android:paddingTop="3dp"
-           android:paddingLeft="3dp"
-           android:paddingRight="3dp"
-           android:paddingBottom="1dp"
+           android:padding="3dp"
            android:background="@drawable/box_with_stroke"/>
 
 
