@@ -8,7 +8,7 @@
     android:orientation="vertical"
     android:layout_margin="10dp"
     android:padding="2dp"
-    android:background="@drawable/box_with_stroke">
+    android:background="@drawable/box_with_stroke_red">
     <TextView
         android:id="@+id/inform_title_textView"
         android:layout_width="match_parent"

@@ -24,6 +24,9 @@ public class ResultOfDiagnosis extends AppCompatActivity {
     TextView dateTextView;
     Dialog dialog;
 
+    String resultString = "";
+    String[] typeNums;
+
 
     /* RecyclerView와 관련된 컴포넌트 */
     ArrayList<Skin> mSkinList;
@@ -31,7 +34,6 @@ public class ResultOfDiagnosis extends AppCompatActivity {
     RecyclerView recyclerView;
     LinearLayoutManager layoutManager;
     MyAdapter2 myAdapter2;
-    int typeNum = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,11 +51,14 @@ public class ResultOfDiagnosis extends AppCompatActivity {
         // RecyclerView 설정
         Intent intent = getIntent();
         mSkinList = (ArrayList<Skin>)intent.getSerializableExtra("skinArray");
+
+        resultString = intent.getStringExtra("resultString");
+        typeNums = resultString.split(",");
+
         resultArrayList = new ArrayList<>();
         for(int i=0;i<mSkinList.size();i++){
-            Result resultData = new Result(mSkinList.get(i).getSkinPictureName(), typeNum+"");
-            typeNum++;
-            Log.d("Result 데이터 확인", resultData.getSkinPicturePath()+" 와 "+resultData.getAcneTypeNum());
+            Result resultData = new Result(mSkinList.get(i).getSkinPicturePath(), typeNums[i]);
+            Log.d("Result 데이터 확인", resultData.getSkinPicturePath()+" 와 "+typeNums[i]);
             resultArrayList.add(resultData);
         }
 

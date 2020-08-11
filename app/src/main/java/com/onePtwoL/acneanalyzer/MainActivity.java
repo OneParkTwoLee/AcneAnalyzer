@@ -91,6 +91,7 @@ public class MainActivity extends AppCompatActivity {
     private Request request;
     private MediaType mediaType;
     private RequestBody body;
+    private String resultString = " ";
 
     private DialogForLoading loadingDialog;
 
@@ -135,7 +136,7 @@ public class MainActivity extends AppCompatActivity {
         mTextViewResult = findViewById(R.id.text_view_result);  // 디버깅용
         client = new OkHttpClient();
         mediaType = MediaType.parse("text/plain");
-        OkhttpUrl ="http://172.30.1.4:5000/api/pictures/";
+        OkhttpUrl ="http://172.30.1.4:5000/api/acnes";
 
     }
 
@@ -172,24 +173,19 @@ public class MainActivity extends AppCompatActivity {
                 thread.start();
 
 
-                if(skinArrayList.size() == 0){
-                    Toast.makeText(getApplicationContext(), "진단할 이미지를 업로드 한 후, 진단을 진행하세요", Toast.LENGTH_SHORT).show();
-                }else {
-                    Intent intent = new Intent(getApplicationContext(), ResultOfDiagnosis.class);
-                    intent.putExtra("skinArray", skinArrayList);
-                    startActivity(intent);
-                }
-
-
-
-                    /* OKHTTP3
-
                     Log.d("OKHTTP 파일 확인", imageFileName+" : 이름  / "+imageFilePath+" : 경로");
-                    body = new MultipartBody.Builder().setType(MultipartBody.FORM)
-                            .addFormDataPart("picture",imageFileName,
+                    MultipartBody.Builder multiBuilder = new MultipartBody.Builder().setType(MultipartBody.FORM);
+                    if(skinArrayList.size()==0){
+                        Log.d("넘길 데이터 없음", "NULL");
+                    }else{
+                        for(int i=0;i<skinArrayList.size();i++){
+                            multiBuilder.addFormDataPart("acne",skinArrayList.get(i).getSkinPictureName(),
                                     RequestBody.create(MediaType.parse("application/octet-stream"),
-                                            new File(imageFilePath)))
-                            .build();
+                                            new File(skinArrayList.get(i).getSkinPicturePath())));
+                        }
+                    }
+
+                    body = multiBuilder.build();
                     request = new Request.Builder()
                             .url(OkhttpUrl)
                             .method("POST", body)
@@ -213,6 +209,7 @@ public class MainActivity extends AppCompatActivity {
                                         @Override
                                         public void run() {
                                             try {
+                                                resultString = jsonObject.getString("predicted_label");
                                                 mTextViewResult.setText(jsonObject.getString("predicted_label"));
                                             } catch (JSONException e) {
                                                 e.printStackTrace();
@@ -222,27 +219,29 @@ public class MainActivity extends AppCompatActivity {
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
-                                // Log.d("값 출력", myResponse+"");
-                                //MainActivity.this.runOnUiThread(new Runnable() {
-                                //    @Override
-                                //    public void run() {
-                                //        mTextViewResult.setText(myResponse);
-                                //    }
-                                //});
                             }
                         }
 
                     });
-                    */
             }
         });
+
+        if(skinArrayList.size() == 0){
+            Toast.makeText(getApplicationContext(), "진단할 이미지를 업로드 한 후, 진단을 진행하세요", Toast.LENGTH_SHORT).show();
+        }else {
+            Intent intent = new Intent(getApplicationContext(), ResultOfDiagnosis.class);
+            intent.putExtra("skinArray", skinArrayList);
+            intent.putExtra("resultString", resultString);
+            startActivity(intent);
+        }
+
 
     }
 
     /* RecyclerView 데이터 추가 버튼 */
-    public void setRecyclerViewData(String path){
+    public void setRecyclerViewData(String name, String path){
         Log.d("리사이클러뷰 데이터 추가", path+"");
-        Skin skin = new Skin(path+"");
+        Skin skin = new Skin(name, path);
         skinArrayList.add(skin);
         myAdapter.notifyDataSetChanged();
     }
@@ -443,7 +442,7 @@ public class MainActivity extends AppCompatActivity {
                         Log.d("갤러리 절대경로", tempFile.getAbsolutePath()+"");
 
                         if(bitmap != null){
-                            setRecyclerViewData(imageFilePath);  // RecyclerView에 데이터 추가
+                            setRecyclerViewData(imageFileName, imageFilePath);  // RecyclerView에 데이터 추가
                             Log.d("갤러리 이미지 URI_re", imageUri+"");
                         }
 

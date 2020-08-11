@@ -112,7 +112,8 @@
         android:layout_height="match_parent"
         android:layout_marginTop="250dp"
         android:text="okhttp test"
-        android:visibility="invisible"
+        android:textSize="20dp"
+        android:layout_marginLeft="20dp"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
