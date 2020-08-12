@@ -44,6 +44,7 @@ public class ResultOfDiagnosis extends AppCompatActivity {
         infoImageView.setClickable(true);
         clickInfoImageView();
 
+        // 오늘 날짜 설명 UI
         dateTextView = findViewById(R.id.result_date_textView);
         String timeStamp = new SimpleDateFormat("yyyy.MM.dd").format(new Date());
         dateTextView.setText(timeStamp);
@@ -53,7 +54,6 @@ public class ResultOfDiagnosis extends AppCompatActivity {
         mSkinList = (ArrayList<Skin>)intent.getSerializableExtra("skinArray");
 
         resultString = intent.getExtras().getString("resultString");
-        Log.d("스트링 전체 확인", resultString);
         typeNums = resultString.split(",");
 
         resultArrayList = new ArrayList<>();

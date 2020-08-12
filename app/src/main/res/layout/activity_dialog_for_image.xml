@@ -5,7 +5,7 @@
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
     android:padding="30dp"
-    android:background="@color/colorWhite">
+    android:background="@drawable/box_no_stroke">
     <TextView
         android:id="@+id/dialog_title_textView"
         android:layout_width="match_parent"

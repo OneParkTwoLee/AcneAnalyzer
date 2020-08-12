@@ -14,7 +14,7 @@ import android.widget.ProgressBar;
 import com.bumptech.glide.Glide;
 
 public class DialogForLoading extends Dialog {
-    ProgressBar progressBar;
+    ImageView loadingImageView;
     Context context;
 
 
@@ -28,6 +28,8 @@ public class DialogForLoading extends Dialog {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dialog_for_loading);
-        progressBar = findViewById(R.id.loading_progressBar);
+
+        loadingImageView = findViewById(R.id.loading_progressBar);
+        Glide.with(getContext()).load(R.drawable.loader).into(loadingImageView);
     }
 }

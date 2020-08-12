@@ -106,14 +106,6 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
-    <TextView
-        android:id="@+id/text_view_result"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="250dp"
-        android:text="okhttp test"
-        android:textSize="20dp"
-        android:layout_marginLeft="20dp"
-        />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
