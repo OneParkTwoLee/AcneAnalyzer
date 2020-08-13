@@ -16,7 +16,7 @@ Android Studio SDK 28
 
 ## How it works
 ### Splash Screen
-AcneAnalyzer의 시작 화면입니다. 실행 3초 후 메인 화면(진단하는 사진을 업로드 하는 화면)으로 넘어갑니다. 어플의 이름과 어플을 잘 나타내는 이미지로 구성했습니다.
+AcneAnalyzer의 시작 화면입니다. 실행 3초 후 메인 화면(진단하는 사진을 업로드 하는 화면)으로 넘어갑니다. 어플의 이름과 어플을 잘 나타내는 이미지로 구성했습니다.<br>
 <img src="https://user-images.githubusercontent.com/55984242/90116284-3a380380-dd90-11ea-8fde-8c8a761a3efb.jpg" height="400"></img><br>
 ```
 new android.os.Handler().postDelayed(
@@ -30,7 +30,7 @@ new android.os.Handler().postDelayed(
                 , 3000);
 ```
 ### Main Screen
-AcneAnalyzer의 메인 화면입니다. 진단하려고 하는 이미지를 만들고 업로드 하며 업로드 후에는 진단 버튼을 눌러 진단을 시작합니다.
+AcneAnalyzer의 메인 화면입니다. 진단하려고 하는 이미지를 만들고 업로드 하며 업로드 후에는 진단 버튼을 눌러 진단을 시작합니다. <br>
 <img src="https://user-images.githubusercontent.com/55984242/90116385-5f2c7680-dd90-11ea-81fa-1cf2b0dd5742.jpg" height="400"></img>
 <img src="https://user-images.githubusercontent.com/55984242/90116435-710e1980-dd90-11ea-9c82-e49e32c76b8d.jpg" height="400"></img>
 <img src="https://user-images.githubusercontent.com/55984242/90116455-7b301800-dd90-11ea-98a7-e3f7034a2b6c.jpg" height="400"></img>
@@ -42,7 +42,7 @@ AcneAnalyzer의 메인 화면입니다. 진단하려고 하는 이미지를 만�
 - 화면 우측 상단에 있는 **진단 버튼**을 누르면 리스트에 있는 이미지들이 분석되며 분석된 결과는 다음 화면으로 넘어갑니다.
 
 ### Result Screen
-acne의 5가지 종류를 결과로 받아 화면을 생성합니다. acne에 대한 정보와 각 결과에 따른 치료법을 제시합니다.
+acne의 5가지 종류를 결과로 받아 화면을 생성합니다. acne에 대한 정보와 각 결과에 따른 치료법을 제시합니다.<br>
 <img src="https://user-images.githubusercontent.com/55984242/90116534-969b2300-dd90-11ea-8475-5bb76b3828e3.jpg" height="400"></img>
 <img src="https://user-images.githubusercontent.com/55984242/90116542-9c910400-dd90-11ea-856d-da90ece0adf9.jpg" height="400"></img><br>
 - 이미지에 대한 결과는 연속된 스트링(ex. "1, 2")으로 들어온 이미지 리스트에 대한 결과를 잘라서 사용합니다. acne 종류에 대한 조건문을 이용하여 각 이미지 분석 결과에 맞는 치료법을 제시합니다.
