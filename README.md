@@ -14,6 +14,6 @@ Android Studio SDK 28
 
 ## How it works
 ### Splash Screen
-<img src="https://user-images.githubusercontent.com/55984242/90116284-3a380380-dd90-11ea-8fde-8c8a761a3efb.jpg" height="70%"></img>
+<img src="https://user-images.githubusercontent.com/55984242/90116284-3a380380-dd90-11ea-8fde-8c8a761a3efb.jpg" height="100"></img>
 ### Main Screen
 ### Result Screen
