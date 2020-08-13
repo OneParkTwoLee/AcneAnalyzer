@@ -50,5 +50,5 @@ acne의 5가지 종류를 결과로 받아 화면을 생성합니다. acne에 �
 
 <br>
 ## 실제 작동 영상
-<iframe width="640" height="360" src="https://youtu.be/cTMfSV_rZSs" frameborder="0" gesture="media" allowfullscreen=""></iframe>
+<iframe width="640" height="360" src="https://www.youtube.com/watch?time_continue=8&v=cTMfSV_rZSs&feature=emb_title" frameborder="0" gesture="media" allowfullscreen=""></iframe>
 
