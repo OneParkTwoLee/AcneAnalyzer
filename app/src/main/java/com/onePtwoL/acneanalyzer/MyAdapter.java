@@ -2,7 +2,9 @@ package com.onePtwoL.acneanalyzer;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.Matrix;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.BitmapDrawable;
 import android.media.ExifInterface;
 import android.util.Log;
@@ -23,13 +25,14 @@ import java.util.ArrayList;
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     private ArrayList<Skin> mList;
     public static class MyViewHolder extends RecyclerView.ViewHolder {
-        public Button RowDeleteBtn;
+        public ImageView RowDeleteBtn;
         public ImageView RowImage;
 
         public MyViewHolder(View v) {
             super(v);
             RowImage = v.findViewById(R.id.skin_ImageView);
             RowDeleteBtn = v.findViewById(R.id.skin_closeBtn);
+
         }
     }
 
@@ -40,7 +43,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     @Override
     public MyAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.skin_picture_row, parent, false);
+                .inflate(R.layout.skin_row, parent, false);
         MyViewHolder vh = new MyViewHolder(view);
         return vh;
     }
