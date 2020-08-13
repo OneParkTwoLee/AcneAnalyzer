@@ -46,4 +46,9 @@ acne의 5가지 종류를 결과로 받아 화면을 생성합니다. acne에 �
 <img src="https://user-images.githubusercontent.com/55984242/90116534-969b2300-dd90-11ea-8475-5bb76b3828e3.jpg" height="400"></img>
 <img src="https://user-images.githubusercontent.com/55984242/90116542-9c910400-dd90-11ea-856d-da90ece0adf9.jpg" height="400"></img><br>
 - 이미지에 대한 결과는 연속된 스트링(ex. "1, 2")으로 들어온 이미지 리스트에 대한 결과를 잘라서 사용합니다. acne 종류에 대한 조건문을 이용하여 각 이미지 분석 결과에 맞는 치료법을 제시합니다.
-- 제목 옆 정보 버튼(i)을 누르면 여드름의 5가지 종류에 대한 다이얼로그 화면이 뜹니다. 각 여드름 이미지를 누르면 해당 타입에 대한 설명을 볼 수 있습니다.
+- 제목 옆 정보 버튼(i)을 누르면 여드름의 5가지 종류에 대한 다이얼로그 화면이 뜹니다. 각 여드름 이미지를 누르면 해당 타입에 대한 설명을 볼 수 있습니다.<br>
+
+<br>
+## 실제 작동 영상
+<iframe width="640" height="360" src="https://youtu.be/cTMfSV_rZSs" frameborder="0" gesture="media" allowfullscreen=""></iframe>
+
