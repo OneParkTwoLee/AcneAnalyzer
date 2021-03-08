@@ -15,6 +15,9 @@ Android Studio SDK 28
 |박소영|백엔드, 이미지 분석 모델 구현, 데이터 수집|
 
 ## How it works
+### Operating Video
+[!["Acne Analyzer" operating video](http://img.youtube.com/vi/yt7kCxQKpr0/0.jpg)](https://www.youtube.com/watch?v=yt7kCxQKpr0)
+
 ### Splash Screen
 AcneAnalyzer의 시작 화면입니다. 실행 3초 후 메인 화면(진단하는 사진을 업로드 하는 화면)으로 넘어갑니다. 어플의 이름과 어플을 잘 나타내는 이미지로 구성했습니다.<br>
 <img src="https://user-images.githubusercontent.com/55984242/90116284-3a380380-dd90-11ea-8fde-8c8a761a3efb.jpg" height="400"></img><br>
